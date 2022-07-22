@@ -1,27 +1,31 @@
-// Import from Libraries
+// Import from libraries
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-// Components
+// Import from components
 import FormErrorBanner from "../formErrorBanner/FormErrorBanner";
 import FormLabel from "../formLabel/formLabel";
 import Button from "../button/Button";
-// Utilities
-import { authFormValidator, ErrorObject } from "../../utils/formValidator";
+// Import From Utilities
+import {
+  authFormValidator,
+  AuthFormValues,
+  ErrorObject,
+} from "../../utils/formValidator";
 import { tailwindClass } from "../../utils/tailwindClass";
 
-const SignInForm: React.FC = () => {
+const SignUpForm: React.FC = () => {
   return (
     <Formik
       initialValues={{
         email: "",
         password: "",
+        confirmPassword: "",
       }}
       onSubmit={(values) => {
-        // Handle Submitting Form
         console.log(values);
       }}
       validate={(values) => {
-        const errors: ErrorObject = authFormValidator(values, false);
+        const errors: ErrorObject = authFormValidator(values, true);
         return errors;
       }}
     >
@@ -45,7 +49,7 @@ const SignInForm: React.FC = () => {
               </ErrorMessage>
             </div>
             <div className="mb-6">
-              <FormLabel forInput="password" text="Password" />
+              <FormLabel forInput="passowrd" text="Password" />
               <Field
                 type="password"
                 id="password"
@@ -60,8 +64,25 @@ const SignInForm: React.FC = () => {
                 }}
               </ErrorMessage>
             </div>
+            <div className="mb-6">
+              <FormLabel forInput="confirmPassword" text="Confirm Password" />
+              <Field
+                type="password"
+                id="confirmPassword"
+                value={values.confirmPassword}
+                onChange={handleChange}
+                placeholder="*******"
+                className={tailwindClass.inputFieldClasses}
+              />
+              <ErrorMessage name="confirmPassword">
+                {(msg) => {
+                  return <FormErrorBanner msg={msg} />;
+                }}
+              </ErrorMessage>
+            </div>
+
             <div className="flex justify-center">
-              <Button type="submit" text="Sign In" />
+              <Button type="submit" text="Sign Up" />
             </div>
           </Form>
         );
@@ -70,4 +91,4 @@ const SignInForm: React.FC = () => {
   );
 };
 
-export default SignInForm;
+export default SignUpForm;

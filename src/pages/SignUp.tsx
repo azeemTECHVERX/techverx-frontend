@@ -1,7 +1,7 @@
 import React from "react";
 // Components
 import Header from "../components/header/Header";
-import SignUpForm from "../components/signupform/SignUpForm";
+import SignUpForm from "../components/signUpForm/SignUpForm";
 
 const SignUp: React.FC = () => {
   return (
