@@ -15,7 +15,7 @@ const UserContext = createContext<{
 } | null>(null);
 
 export const UserProvider = ({ children }: any) => {
-  const [user, setUser] = useState<any>({});
+  const [user, setUser] = useState<any>(undefined);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

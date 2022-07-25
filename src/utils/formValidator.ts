@@ -29,7 +29,7 @@ export const authFormValidator = (
   if (values.password && values.password.length < 6) {
     errors.password = "Password should be at least 6 charaters";
   }
-  if (!isSignUp && !values.name) {
+  if (isSignUp && !values.name) {
     errors.name = "Name is Required!";
   }
   if (isSignUp) {

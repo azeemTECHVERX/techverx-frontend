@@ -1,15 +1,39 @@
 // Import from Libraries
-import React from "react";
+import React, { Dispatch, useContext, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useNavigate } from "react-router-dom";
+// Custom Hooks
+import { useSignIn } from "../../hooks/useSignIn";
 // Components
 import FormErrorBanner from "../formErrorBanner/FormErrorBanner";
 import FormLabel from "../formLabel/formLabel";
 import Button from "../button/Button";
+import InfoModal from "../InfoModal/InfoModal";
 // Utilities
 import { authFormValidator, ErrorObject } from "../../utils/formValidator";
 import { tailwindClass } from "../../utils/tailwindClass";
+// Context
+import UserContext from "../../context/UserContext";
 
 const SignInForm: React.FC = () => {
+  const {
+    mutate,
+    data,
+    isError,
+    error,
+  }: { mutate: any; data: any; isError: any; error: any } = useSignIn();
+
+  if (data) {
+    window.localStorage.setItem("token", JSON.stringify(data.data.token));
+  }
+
+  let navigate = useNavigate();
+  const userContext = useContext(UserContext);
+
+  useEffect(() => {
+    return userContext?.setUser(data?.data?.user);
+  });
+
   return (
     <Formik
       initialValues={{
@@ -17,8 +41,8 @@ const SignInForm: React.FC = () => {
         password: "",
       }}
       onSubmit={(values) => {
-        // Handle Submitting Form
         console.log(values);
+        mutate(values);
       }}
       validate={(values) => {
         const errors: ErrorObject = authFormValidator(values, false);
@@ -63,6 +87,23 @@ const SignInForm: React.FC = () => {
             <div className="flex justify-center">
               <Button type="submit" text="Sign In" />
             </div>
+            {isError ? (
+              <InfoModal
+                title={error.message}
+                body={error?.response?.data?.error}
+                isOpen={true}
+                isError={true}
+              />
+            ) : null}
+            {data && data.data ? (
+              <InfoModal
+                title="Sign In Successfull"
+                body="You have been successfully signed into the application"
+                isOpen={true}
+                isError={false}
+                action={() => navigate("/")}
+              />
+            ) : null}
           </Form>
         );
       }}

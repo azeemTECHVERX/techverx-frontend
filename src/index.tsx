@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
+import { UserProvider } from "./context/UserContext";
 import "./index.css";
 
 const root = ReactDOM.createRoot(
@@ -8,7 +9,9 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <Router>
-    <App />
-  </Router>
+  <UserProvider>
+    <Router>
+      <App />
+    </Router>
+  </UserProvider>
 );

@@ -1,5 +1,5 @@
 // Import from libraries
-import React from "react";
+import React, { useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 // Importing custom hooks
@@ -13,8 +13,7 @@ import InfoModal from "../InfoModal/InfoModal";
 import { authFormValidator, ErrorObject } from "../../utils/formValidator";
 import { tailwindClass } from "../../utils/tailwindClass";
 
-const SignUpForm: React.FC = (props) => {
-  console.log(props);
+const SignUpForm: React.FC = () => {
   const {
     mutate,
     data,
@@ -23,10 +22,6 @@ const SignUpForm: React.FC = (props) => {
   }: { mutate: any; data: any; isError: any; error: any } = usePostUser();
 
   let navigate = useNavigate();
-
-  console.log(data);
-  console.log(isError);
-  console.log(error);
 
   return (
     <Formik
