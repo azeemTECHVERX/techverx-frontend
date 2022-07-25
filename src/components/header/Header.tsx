@@ -1,14 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Button from "../button/Button";
+import { useLocation } from "react-router-dom";
 
-interface HeaderProps {
-  btnText: string;
-  navigateTo: string;
-  actionFunction?: () => void;
-}
-
-const Header: React.FC<HeaderProps> = ({ btnText, navigateTo }) => {
+const Header: React.FC = () => {
+  const location = useLocation();
   return (
     <nav className=" border-gray-200 px-2 sm:px-4 py-5 rounded dark:bg-gray-900">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
@@ -23,13 +19,17 @@ const Header: React.FC<HeaderProps> = ({ btnText, navigateTo }) => {
           </span>
         </div>
         <div className="flex md:order-2">
-          <Link to={navigateTo}>
-            <Button type="button" text="Navigate" />
+          <Link
+            to={location.pathname.includes("signup") ? "/signin" : "/signup"}
+          >
+            <Button
+              type="button"
+              text={
+                location.pathname.includes("signup") ? "Sign In" : "Sign Up"
+              }
+            />
           </Link>
         </div>
-        {/* <div className="hidden justify-between items-center text-3xl text-gray-700 w-full md:flex md:w-auto md:order-1">
-          Posts
-        </div> */}
       </div>
     </nav>
   );
