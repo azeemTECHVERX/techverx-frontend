@@ -1,7 +1,8 @@
+// Libraries
 import React, { useState } from "react";
-import Button from "../button/Button";
 import { motion } from "framer-motion";
-
+// Components
+import Button from "../button/Button";
 interface InfoModalInterface {
   title: string;
   body: string;

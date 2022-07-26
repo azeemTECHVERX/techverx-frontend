@@ -1,10 +1,19 @@
-import React from "react";
+// Libraries
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+// Components
 import Button from "../button/Button";
+// Hooks
 import { useLocation } from "react-router-dom";
+// Context
+import UserContext from "../../context/UserContext";
+// Utils
+import signOutUser from "../../utils/signOutUser";
 
 const Header: React.FC = () => {
   const location = useLocation();
+  const userContext = useContext(UserContext);
+
   return (
     <nav className=" border-gray-200 px-2 sm:px-4 py-5 rounded dark:bg-gray-900">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
@@ -14,21 +23,29 @@ const Header: React.FC = () => {
             className="mr-3 h-6 sm:h-9"
             alt="Techverx Logo"
           />
-          <span className="self-center text-xl text-gray-200 font-semibold whitespace-nowrap">
+          <span className="self-center text-2xl text-gray-200 font-semibold whitespace-nowrap">
             Techverx
           </span>
         </div>
         <div className="flex md:order-2">
-          <Link
-            to={location.pathname.includes("signup") ? "/signin" : "/signup"}
-          >
+          {userContext?.user ? (
             <Button
               type="button"
-              text={
-                location.pathname.includes("signup") ? "Sign In" : "Sign Up"
-              }
+              text="Sign Out"
+              handleClick={() => signOutUser(userContext)}
             />
-          </Link>
+          ) : (
+            <Link
+              to={location.pathname.includes("signup") ? "/signin" : "/signup"}
+            >
+              <Button
+                type="button"
+                text={
+                  location.pathname.includes("signup") ? "Sign In" : "Sign Up"
+                }
+              />
+            </Link>
+          )}
         </div>
       </div>
     </nav>

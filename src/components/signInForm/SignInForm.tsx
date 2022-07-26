@@ -1,8 +1,8 @@
-// Import from Libraries
+// Libraries
 import React, { Dispatch, useContext, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+// Hooks
 import { useNavigate } from "react-router-dom";
-// Custom Hooks
 import { useSignIn } from "../../hooks/useSignIn";
 // Components
 import FormErrorBanner from "../formErrorBanner/FormErrorBanner";
@@ -24,12 +24,13 @@ const SignInForm: React.FC = () => {
   }: { mutate: any; data: any; isError: any; error: any } = useSignIn();
 
   if (data) {
-    window.localStorage.setItem("token", JSON.stringify(data.data.token));
+    window.localStorage.setItem("token", data.data.token);
   }
 
   let navigate = useNavigate();
   const userContext = useContext(UserContext);
 
+  // Setting User Context on unmounting
   useEffect(() => {
     return userContext?.setUser(data?.data?.user);
   });
@@ -41,7 +42,6 @@ const SignInForm: React.FC = () => {
         password: "",
       }}
       onSubmit={(values) => {
-        console.log(values);
         mutate(values);
       }}
       validate={(values) => {

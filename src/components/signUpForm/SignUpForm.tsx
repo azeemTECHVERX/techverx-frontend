@@ -1,15 +1,15 @@
-// Import from libraries
+// Libraries
 import React, { useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
-// Importing custom hooks
+// Hooks
 import { usePostUser } from "../../hooks/usePostUser";
-// Import from components
+// Components
 import FormErrorBanner from "../formErrorBanner/FormErrorBanner";
 import FormLabel from "../formLabel/formLabel";
 import Button from "../button/Button";
 import InfoModal from "../InfoModal/InfoModal";
-// Import From Utilities
+// Utils
 import { authFormValidator, ErrorObject } from "../../utils/formValidator";
 import { tailwindClass } from "../../utils/tailwindClass";
 

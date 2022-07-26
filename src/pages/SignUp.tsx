@@ -1,10 +1,19 @@
-import React from "react";
+// Libraries
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 // Components
 import Header from "../components/header/Header";
 import SignUpForm from "../components/signUpForm/SignUpForm";
+// Hooks
+import { useNavigate } from "react-router-dom";
 
 const SignUp: React.FC = () => {
+  let navigate = useNavigate();
+  useEffect(() => {
+    if (window.localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, []);
   return (
     <React.Fragment>
       <Header />
