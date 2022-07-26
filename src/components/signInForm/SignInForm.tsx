@@ -1,6 +1,8 @@
 // Libraries
-import React, { Dispatch, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import toast, { Toaster } from "react-hot-toast";
+import { motion } from "framer-motion";
 // Hooks
 import { useNavigate } from "react-router-dom";
 import { useSignIn } from "../../hooks/useSignIn";
@@ -9,11 +11,14 @@ import FormErrorBanner from "../formErrorBanner/FormErrorBanner";
 import FormLabel from "../formLabel/formLabel";
 import Button from "../button/Button";
 import InfoModal from "../InfoModal/InfoModal";
+import FadeAnimator from "../animators/FadeAnimator";
 // Utilities
 import { authFormValidator, ErrorObject } from "../../utils/formValidator";
 import { tailwindClass } from "../../utils/tailwindClass";
+import ToasterHelper from "../../utils/toasterHelper";
 // Context
 import UserContext from "../../context/UserContext";
+import ErrorSnackbar from "../errorSnackbar/ErrorSnackbar";
 
 const SignInForm: React.FC = () => {
   const {
@@ -23,12 +28,12 @@ const SignInForm: React.FC = () => {
     error,
   }: { mutate: any; data: any; isError: any; error: any } = useSignIn();
 
+  const navigator = useNavigate();
+  const userContext = useContext(UserContext);
+
   if (data) {
     window.localStorage.setItem("token", data.data.token);
   }
-
-  let navigate = useNavigate();
-  const userContext = useContext(UserContext);
 
   // Setting User Context on unmounting
   useEffect(() => {
@@ -87,23 +92,23 @@ const SignInForm: React.FC = () => {
             <div className="flex justify-center">
               <Button type="submit" text="Sign In" />
             </div>
+
             {isError ? (
-              <InfoModal
-                title={error.message}
-                body={error?.response?.data?.error}
-                isOpen={true}
-                isError={true}
-              />
+              <FadeAnimator>
+                <ErrorSnackbar errorMsg={error?.response?.data?.error} />
+              </FadeAnimator>
             ) : null}
-            {data && data.data ? (
-              <InfoModal
-                title="Sign In Successfull"
-                body="You have been successfully signed into the application"
-                isOpen={true}
-                isError={false}
-                action={() => navigate("/")}
-              />
-            ) : null}
+            <div className="hidden">
+              {data?.data
+                ? ToasterHelper(
+                    toast,
+                    "You've been successfully signed in",
+                    navigator,
+                    "success"
+                  )
+                : null}
+            </div>
+            <Toaster />
           </Form>
         );
       }}

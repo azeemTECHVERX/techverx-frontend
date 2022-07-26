@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 // Components
 import Button from "../button/Button";
+import SpringAnimator from "../animators/SpringAnimator";
 interface InfoModalInterface {
   title: string;
   body: string;
