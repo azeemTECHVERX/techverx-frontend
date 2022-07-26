@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import Header from "../components/header/Header";
 import { motion } from "framer-motion";
-import SpringAnimator from "../components/animators/SpringAnimator";
+import Post from "../components/Post/Post";
+import ProfileCard from "../components/profile/ProfileCard";
+import PageAnimator from "../components/animators/PageAnimator";
 
 const Home: React.FC = () => {
   const userContext = useContext(UserContext);
@@ -17,27 +19,17 @@ const Home: React.FC = () => {
   return (
     <div>
       <Header />
-      <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          default: {
-            duration: 0.3,
-            ease: [0, 0.71, 0.2, 1.01],
-          },
-          scale: {
-            type: "spring",
-            damping: 5,
-            stiffness: 100,
-            restDelta: 0.001,
-          },
-        }}
-        exit={{ opacity: 0 }}
-      >
-        <div className="flex items-center justify-center flex-col">
-          <div>Home</div>
+      <PageAnimator>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 lg:gap-6 p-5">
+          <div className="p-14 rounded-lg">
+            <ProfileCard />
+          </div>
+          <div className="col-span-1 lg:col-span-3 p-14 rounded-lg">
+            <div className="flex justify-center"></div>
+            <Post />
+          </div>
         </div>
-      </motion.div>
+      </PageAnimator>
     </div>
   );
 };

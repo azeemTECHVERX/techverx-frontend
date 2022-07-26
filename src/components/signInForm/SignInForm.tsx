@@ -2,7 +2,6 @@
 import React, { useContext, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import toast, { Toaster } from "react-hot-toast";
-import { motion } from "framer-motion";
 // Hooks
 import { useNavigate } from "react-router-dom";
 import { useSignIn } from "../../hooks/useSignIn";
@@ -10,7 +9,6 @@ import { useSignIn } from "../../hooks/useSignIn";
 import FormErrorBanner from "../formErrorBanner/FormErrorBanner";
 import FormLabel from "../formLabel/formLabel";
 import Button from "../button/Button";
-import InfoModal from "../InfoModal/InfoModal";
 import FadeAnimator from "../animators/FadeAnimator";
 // Utilities
 import { authFormValidator, ErrorObject } from "../../utils/formValidator";
