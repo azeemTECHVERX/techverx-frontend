@@ -1,14 +1,16 @@
 // Libraries
-import React, { useContext } from "react";
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 // Hooks
 import { usePostUser } from "../../hooks/usePostUser";
 // Components
 import FormErrorBanner from "../formErrorBanner/FormErrorBanner";
 import FormLabel from "../formLabel/formLabel";
 import Button from "../button/Button";
-import InfoModal from "../InfoModal/InfoModal";
+import FadeAnimator from "../animators/FadeAnimator";
+import ErrorSnackbar from "../errorSnackbar/ErrorSnackbar";
 // Utils
 import { authFormValidator, ErrorObject } from "../../utils/formValidator";
 import { tailwindClass } from "../../utils/tailwindClass";
@@ -22,6 +24,17 @@ const SignUpForm: React.FC = () => {
   }: { mutate: any; data: any; isError: any; error: any } = usePostUser();
 
   let navigate = useNavigate();
+
+  const toaster = () => {
+    toast.success("User has been registed!", {
+      id: "signuptoaster",
+    });
+
+    setTimeout(() => {
+      navigate("/signin");
+    }, 1000);
+    return <React.Fragment />;
+  };
 
   return (
     <Formik
@@ -112,22 +125,13 @@ const SignUpForm: React.FC = () => {
             </div>
 
             {isError ? (
-              <InfoModal
-                title={error.message}
-                body={error?.response?.data?.error}
-                isOpen={true}
-                isError={true}
-              />
+              <FadeAnimator>
+                <ErrorSnackbar errorMsg={error?.response?.data?.error} />
+              </FadeAnimator>
             ) : null}
-            {data && data.data ? (
-              <InfoModal
-                title="User Created"
-                body="Congratulation! A new user has been created!"
-                isOpen={true}
-                isError={false}
-                action={() => navigate("/signin")}
-              />
-            ) : null}
+            <div className="hidden">{data?.data ? toaster() : null}</div>
+
+            <Toaster />
           </Form>
         );
       }}

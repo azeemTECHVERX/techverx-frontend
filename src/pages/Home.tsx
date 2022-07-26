@@ -1,14 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../context/UserContext";
 import Header from "../components/header/Header";
-import { motion } from "framer-motion";
 import Post from "../components/Post/Post";
 import ProfileCard from "../components/profile/ProfileCard";
 import PageAnimator from "../components/animators/PageAnimator";
 
 const Home: React.FC = () => {
-  const userContext = useContext(UserContext);
   let navigate = useNavigate();
   // Navigating User if user is not logged in!
   useEffect(() => {

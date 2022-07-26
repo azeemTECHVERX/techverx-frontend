@@ -13,7 +13,6 @@ import FadeAnimator from "../animators/FadeAnimator";
 // Utilities
 import { authFormValidator, ErrorObject } from "../../utils/formValidator";
 import { tailwindClass } from "../../utils/tailwindClass";
-import ToasterHelper from "../../utils/toasterHelper";
 // Context
 import UserContext from "../../context/UserContext";
 import ErrorSnackbar from "../errorSnackbar/ErrorSnackbar";
@@ -37,6 +36,18 @@ const SignInForm: React.FC = () => {
   useEffect(() => {
     return userContext?.setUser(data?.data?.user);
   });
+
+  const toaster = () => {
+    toast.remove("signuptoaster");
+    toast.success("You've been successfully signed in", {
+      id: "signintoaster",
+    });
+
+    setTimeout(() => {
+      navigator("/");
+    }, 1500);
+    return <React.Fragment />;
+  };
 
   return (
     <Formik
@@ -91,22 +102,14 @@ const SignInForm: React.FC = () => {
               <Button type="submit" text="Sign In" />
             </div>
 
+            {data?.data ? <Toaster /> : null}
+
             {isError ? (
               <FadeAnimator>
                 <ErrorSnackbar errorMsg={error?.response?.data?.error} />
               </FadeAnimator>
             ) : null}
-            <div className="hidden">
-              {data?.data
-                ? ToasterHelper(
-                    toast,
-                    "You've been successfully signed in",
-                    navigator,
-                    "success"
-                  )
-                : null}
-            </div>
-            <Toaster />
+            {data?.data ? toaster() : null}
           </Form>
         );
       }}

@@ -34,7 +34,7 @@ const PostCard = ({ posts }: PostCardProps) => {
     <React.Fragment>
       {posts.map((post) => {
         return (
-          <div key={post._id} className="bg-slate-300 rounded-2xl m-4 w-fit">
+          <div key={post._id} className="bg-slate-200 rounded-2xl m-4 w-fit">
             <div className="container max-w-2xl px-10 py-6 mx-auto rounded-lg shadow-sm ">
               <div className="flex items-center justify-between">
                 <span className="text-sm">

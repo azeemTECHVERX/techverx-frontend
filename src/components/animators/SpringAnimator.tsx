@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const SpringAnimator: React.FC = (props: any) => {
+const SpringAnimator: React.FC<any> = (props: any) => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5 }}
