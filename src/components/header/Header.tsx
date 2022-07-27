@@ -1,19 +1,21 @@
 // Libraries
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 // Components
 import Button from "../button/Button";
+import CreatePostForm from "../createPostForm/CreatePostForm";
 // Hooks
 import { useLocation } from "react-router-dom";
 // Context
 import UserContext from "../../context/UserContext";
 // Utils
 import signOutUser from "../../utils/signOutUser";
+import EmptyModal from "../emptyModal/EmptyModal";
 
 const Header: React.FC = () => {
   const location = useLocation();
   const userContext = useContext(UserContext);
-
+  const [openModal, setOpenModal] = useState<boolean>(false);
   return (
     <nav className=" border-gray-200 px-2 sm:px-4 py-5 rounded dark:bg-gray-900">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
@@ -29,11 +31,18 @@ const Header: React.FC = () => {
         </div>
         <div className="flex md:order-2">
           {userContext?.user ? (
-            <Button
-              type="button"
-              text="Sign Out"
-              handleClick={() => signOutUser(userContext)}
-            />
+            <div className="space-x-3">
+              <Button
+                type="button"
+                text="Create Post"
+                handleClick={() => setOpenModal(true)}
+              />
+              <Button
+                type="button"
+                text="Sign Out"
+                handleClick={() => signOutUser(userContext)}
+              />
+            </div>
           ) : (
             <Link
               to={location.pathname.includes("signup") ? "/signin" : "/signup"}
@@ -48,6 +57,9 @@ const Header: React.FC = () => {
           )}
         </div>
       </div>
+      <EmptyModal isOpen={openModal} closeModal={() => setOpenModal(false)}>
+        <CreatePostForm closeModal={setOpenModal} />
+      </EmptyModal>
     </nav>
   );
 };

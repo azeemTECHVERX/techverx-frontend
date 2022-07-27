@@ -12,6 +12,16 @@ export interface ErrorObject {
   confirmPassword?: string;
 }
 
+export interface PostFormValues {
+  title: string;
+  text: string;
+}
+
+export interface PostFormErrorObject {
+  title?: string;
+  text?: string;
+}
+
 export const authFormValidator = (
   values: AuthFormValues,
   isSignUp: boolean
@@ -45,6 +55,17 @@ export const authFormValidator = (
     if (values.name && values.name.length < 3) {
       errors.name = "Name should be atleast 3 character long";
     }
+  }
+  return errors;
+};
+
+export const postFormValidator = (values: PostFormValues) => {
+  const errors: PostFormErrorObject = {};
+  if (!values.text) {
+    errors.text = "Post Content is Required!";
+  }
+  if (!values.title) {
+    errors.title = "Post Title is Required!";
   }
   return errors;
 };

@@ -18,7 +18,13 @@ const SpringAnimator: React.FC<any> = (props: any) => {
           restDelta: 0.001,
         },
       }}
-      exit={{ opacity: 0 }}
+      exit={{
+        opacity: 0,
+        transition: {
+          ease: [0, 0.71, 0.2, 1.01],
+          duration: 0.3,
+        },
+      }}
     >
       {props.children}
     </motion.div>

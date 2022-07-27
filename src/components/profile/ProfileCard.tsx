@@ -7,7 +7,7 @@ const ProfileCard: React.FC = () => {
       <div className="w-full h-full bg-white rounded-2xl opacity-50 absolute z-10"></div>
       <div className="p-10">
         <div className="flex flex-col items-center pb-10 relative z-20">
-          <div className="mb-3 w-24 h-24 rounded-full bg-blue-200 shadow-lg flex items-center justify-center">
+          <div className="mb-3 w-24 h-24 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 shadow-lg flex items-center justify-center">
             <h1 className="text-4xl">
               {userContext?.user?.name?.toUpperCase().substring(0, 2)}
             </h1>

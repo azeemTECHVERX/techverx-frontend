@@ -14,7 +14,7 @@ const Post: React.FC = () => {
     );
   }
 
-  if (data) {
+  if (data && data.data.length) {
     return (
       <div className="flex flex-col justify-center">
         <PostCard posts={data.data} />
@@ -30,7 +30,10 @@ const Post: React.FC = () => {
   }
   return (
     <div className="mt-20">
-      <ErrorSnackbar errorMsg="No Posts to show" />
+      <div className="p-4 text-sm text-gray-700 flex items-center bg-gray-100 rounded-lg dark:bg-gray-700 dark:text-gray-300">
+        <div className="font-medium text-2xl">Sorry!</div>
+        <div className="ml-10 text-lg">No Posts to show.</div>
+      </div>
     </div>
   );
 };
