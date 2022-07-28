@@ -13,14 +13,9 @@ const Button: React.FC<ButtonProps> = ({
   handleClick,
   isError,
 }) => {
-  const clickHandler = () => {
-    if (handleClick) {
-      handleClick();
-    }
-  };
   return (
     <button
-      onClick={clickHandler}
+      onClick={handleClick ? handleClick : () => {}}
       type={type}
       className={`text-white ${
         isError

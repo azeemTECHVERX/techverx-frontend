@@ -41,11 +41,11 @@ const SignInForm: React.FC = () => {
     toast.remove("signuptoaster");
     toast.success("You've been successfully signed in", {
       id: "signintoaster",
+      duration: 600,
     });
-
     setTimeout(() => {
       navigator("/");
-    }, 1500);
+    }, 1000);
     return <React.Fragment />;
   };
 
@@ -101,8 +101,6 @@ const SignInForm: React.FC = () => {
             <div className="flex justify-center">
               <Button type="submit" text="Sign In" />
             </div>
-
-            {data?.data ? <Toaster /> : null}
 
             {isError ? (
               <FadeAnimator>

@@ -9,7 +9,7 @@ const FormLabel: React.FC<FormLabelProps> = ({ text, forInput }) => {
   return (
     <label
       htmlFor={forInput}
-      className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+      className="block mb-2 text-sm font-medium text-gray-900"
     >
       {text}
     </label>

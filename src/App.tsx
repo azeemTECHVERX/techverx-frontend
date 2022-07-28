@@ -11,6 +11,7 @@ import UserContext from "./context/UserContext";
 import { useNavigate } from "react-router-dom";
 // Utils
 import fetchUser from "./utils/fetchUser";
+import { Toaster } from "react-hot-toast";
 
 const App: React.FC = () => {
   const userContext = useContext(UserContext);

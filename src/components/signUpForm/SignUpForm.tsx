@@ -28,6 +28,7 @@ const SignUpForm: React.FC = () => {
   const toaster = () => {
     toast.success("User has been registed!", {
       id: "signuptoaster",
+      duration: 600,
     });
 
     setTimeout(() => {
@@ -130,8 +131,6 @@ const SignUpForm: React.FC = () => {
               </FadeAnimator>
             ) : null}
             <div className="hidden">{data?.data ? toaster() : null}</div>
-
-            <Toaster />
           </Form>
         );
       }}

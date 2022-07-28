@@ -4,6 +4,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import App from "./App";
 import { UserProvider } from "./context/UserContext";
 import "./index.css";
+import { Toaster } from "react-hot-toast";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -11,11 +12,12 @@ const root = ReactDOM.createRoot(
 export const queryClient = new QueryClient();
 
 root.render(
-  <UserProvider>
-    <QueryClientProvider client={queryClient}>
+  <QueryClientProvider client={queryClient}>
+    <Toaster />
+    <UserProvider>
       <Router>
         <App />
       </Router>
-    </QueryClientProvider>
-  </UserProvider>
+    </UserProvider>
+  </QueryClientProvider>
 );

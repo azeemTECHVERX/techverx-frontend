@@ -1,11 +1,10 @@
 // Libraries
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 // Components
 import Header from "../components/header/Header";
 import SignUpForm from "../components/signUpForm/SignUpForm";
 import SpringAnimator from "../components/animators/SpringAnimator";
-// Hooks
-import { useNavigate } from "react-router-dom";
 
 const SignUp: React.FC = () => {
   let navigate = useNavigate();

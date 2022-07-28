@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Moment from "react-moment";
 import CancelIcon from "../cancelicon/CancelIcon";
 import { useDeletePost } from "../../hooks/useDeletePost";
@@ -7,39 +7,18 @@ import { queryClient } from "../..";
 import toast, { Toaster } from "react-hot-toast";
 import { ChatAlt2Icon, HeartIcon } from "@heroicons/react/solid";
 import { useToggleLike } from "../../hooks/useToggleLike";
-
-interface PostByAndLike {
-  _id: string;
-  name: string;
-}
-
-interface PostInterface {
-  _id: string;
-  postBy: PostByAndLike;
-  text: string;
-  title: string;
-  likes: PostByAndLike[] | [];
-  comments: CommentInterface[] | [];
-  createdAt: Date;
-  updatedAt: Date;
-  __v: number;
-}
-
-interface CommentInterface {
-  _id: string;
-  date: Date;
-  text: string;
-  user: PostByAndLike;
-}
-
-interface PostCardProps {
-  posts: PostInterface[];
-}
+import Comment from "./Comment";
+import { PostCardProps, PostInterface } from "./interface";
+import FadeAnimator from "../animators/FadeAnimator";
 
 const PostCard = ({ posts }: PostCardProps) => {
   const userContext = useContext(UserContext);
   const mutateDeleteObject = useDeletePost();
   const mutateLikeObject = useToggleLike();
+  const [openComments, setOpenComments] = useState<any>({
+    visible: false,
+    postId: "",
+  });
 
   const handleDelete = (id: string) => {
     mutateDeleteObject
@@ -85,7 +64,6 @@ const PostCard = ({ posts }: PostCardProps) => {
   };
   return (
     <React.Fragment>
-      <Toaster />
       {posts.map((post) => {
         return (
           <div key={post._id} className="rounded-2xl m-4 w-fit relative">
@@ -116,7 +94,7 @@ const PostCard = ({ posts }: PostCardProps) => {
                     <div className="object-cover w-10 h-10 mx-4 bg-gradient-to-r from-sky-400 to-blue-500 flex items-center justify-center rounded-full shadow">
                       <p>{post.postBy.name.toUpperCase().substring(0, 2)}</p>
                     </div>
-                    <span className="hover:underline">{post.postBy.name}</span>
+                    <span className="">{post.postBy.name}</span>
                   </div>
                 </div>
 
@@ -133,7 +111,15 @@ const PostCard = ({ posts }: PostCardProps) => {
                     ) : null}
                   </div>
                   <div className="flex space-x-2">
-                    <ChatAlt2Icon className="h-6 w-6 text-slate-500 hover:scale-110 transition-all ease-in-out hover:cursor-pointer" />
+                    <ChatAlt2Icon
+                      onClick={() =>
+                        setOpenComments({
+                          visible: !openComments.visible,
+                          postId: post._id,
+                        })
+                      }
+                      className="h-6 w-6 text-slate-500 hover:scale-110 transition-all ease-in-out hover:cursor-pointer"
+                    />
                     {post.comments.length ? (
                       <p className="text-slate-600">{post.comments.length}</p>
                     ) : null}
@@ -141,6 +127,11 @@ const PostCard = ({ posts }: PostCardProps) => {
                 </div>
               </div>
             </div>
+            {openComments.visible && post._id === openComments.postId && (
+              <FadeAnimator>
+                <Comment post={post} />
+              </FadeAnimator>
+            )}
           </div>
         );
       })}
