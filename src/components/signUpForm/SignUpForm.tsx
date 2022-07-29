@@ -2,15 +2,15 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
-// Hooks
-import { usePostUser } from "../../hooks/usePostUser";
+import toast from "react-hot-toast";
 // Components
 import FormErrorBanner from "../formErrorBanner/FormErrorBanner";
 import FormLabel from "../formLabel/formLabel";
 import Button from "../button/Button";
 import FadeAnimator from "../animators/FadeAnimator";
 import ErrorSnackbar from "../errorSnackbar/ErrorSnackbar";
+// Hooks
+import { usePostUser } from "../../hooks/usePostUser";
 // Utils
 import { authFormValidator, ErrorObject } from "../../utils/formValidator";
 import { tailwindClass } from "../../utils/tailwindClass";

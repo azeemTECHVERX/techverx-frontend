@@ -1,5 +1,7 @@
-import React, { useContext, useEffect } from "react";
+// Libraries
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+// Components
 import Header from "../components/header/Header";
 import Post from "../components/Post/Post";
 import ProfileCard from "../components/profile/ProfileCard";

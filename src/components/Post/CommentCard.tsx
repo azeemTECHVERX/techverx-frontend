@@ -1,11 +1,17 @@
-import { PostByAndLike } from "./interface";
+// Libraries
 import React, { useContext } from "react";
-import CancelIcon from "../cancelicon/CancelIcon";
-import { useDeleteComment } from "../../hooks/useDeleteComment";
 import Moment from "react-moment";
-import { queryClient } from "../..";
-import toast from "react-hot-toast";
+// Components
+import CancelIcon from "../cancelicon/CancelIcon";
+// Context
 import UserContext from "../../context/UserContext";
+// Hooks
+import { useDeleteComment } from "../../hooks/useDeleteComment";
+// Interface
+import { PostByAndLike } from "./interface";
+// Utils
+import { deleteComment } from "../../utils/postHelpers/postHelpers";
+
 interface CommentCardProps {
   text: string;
   user: PostByAndLike;
@@ -24,28 +30,11 @@ const CommentsCard: React.FC<CommentCardProps> = ({
   const { mutateAsync } = useDeleteComment();
   const userContext = useContext(UserContext);
 
-  const deleteComment = (postId: string, id: string) => {
-    mutateAsync({ id, postId })
-      .then(() => {
-        queryClient.invalidateQueries(["posts"]);
-        toast.success("Comment has been removed.", {
-          duration: 2000,
-          id: "deleteCommentSuccess",
-        });
-      })
-      .catch(() =>
-        toast.error("Error while removing comment", {
-          duration: 2000,
-          id: "deleteCommentError",
-        })
-      );
-  };
-
   return (
     <div className="px-10 relative">
       {userContext?.user?._id === user._id && (
         <div
-          onClick={() => deleteComment(postId, id)}
+          onClick={() => deleteComment(mutateAsync, postId, id)}
           className="absolute top-3 right-3"
         >
           <CancelIcon />

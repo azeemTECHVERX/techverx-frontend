@@ -1,12 +1,13 @@
+// Libraries
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import FormLabel from "../formLabel/formLabel";
-import { tailwindClass } from "../../utils/tailwindClass";
+// Components
 import FormErrorBanner from "../formErrorBanner/FormErrorBanner";
 import Button from "../button/Button";
+// Hooks
 import { useCreateComment } from "../../hooks/useCreateComment";
-import { queryClient } from "../..";
-import toast from "react-hot-toast";
+// Utils
+import { createComment } from "../../utils/postHelpers/postHelpers";
 
 interface CreateCommentProps {
   id: string;
@@ -15,31 +16,13 @@ interface CreateCommentProps {
 const CreateComment: React.FC<CreateCommentProps> = ({ id }) => {
   const { mutateAsync } = useCreateComment();
 
-  const createComment = (values: any) => {
-    values.id = id;
-    mutateAsync(values)
-      .then(() => {
-        queryClient.invalidateQueries(["posts"]);
-        toast.success("Comment has been created!", {
-          duration: 2000,
-          id: "createCommentToaster",
-        });
-      })
-      .catch(() =>
-        toast.error("Couldn't post comment!", {
-          duration: 2000,
-          id: "commentErrorToast",
-        })
-      );
-  };
-
   return (
     <Formik
       initialValues={{
         text: "",
       }}
       onSubmit={(values) => {
-        createComment(values);
+        createComment(mutateAsync, values, id);
       }}
     >
       {({ values, handleChange }) => {

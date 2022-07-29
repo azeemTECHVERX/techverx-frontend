@@ -1,8 +1,11 @@
+// Libraries
 import React from "react";
+// Components
 import PostCard from "./PostCard";
-import { usePosts } from "../../hooks/usePosts";
 import Loader from "../loader/Loader";
 import ErrorSnackbar from "../errorSnackbar/ErrorSnackbar";
+// Hooks
+import { usePosts } from "../../hooks/usePosts";
 
 const Post: React.FC = () => {
   const { data, isLoading, isError } = usePosts();

@@ -1,4 +1,6 @@
+// Libraries
 import React, { useContext } from "react";
+// Context
 import UserContext from "../../context/UserContext";
 const ProfileCard: React.FC = () => {
   const userContext = useContext(UserContext);

@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 // Components
 import Button from "../button/Button";
 import CreatePostForm from "../createPostForm/CreatePostForm";
+import EmptyModal from "../emptyModal/EmptyModal";
 // Hooks
 import { useLocation } from "react-router-dom";
 // Context
 import UserContext from "../../context/UserContext";
 // Utils
 import signOutUser from "../../utils/signOutUser";
-import EmptyModal from "../emptyModal/EmptyModal";
 
 const Header: React.FC = () => {
   const location = useLocation();

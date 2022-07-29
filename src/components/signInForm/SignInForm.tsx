@@ -1,21 +1,21 @@
 // Libraries
 import React, { useContext, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import toast, { Toaster } from "react-hot-toast";
-// Hooks
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useSignIn } from "../../hooks/useSignIn";
 // Components
 import FormErrorBanner from "../formErrorBanner/FormErrorBanner";
 import FormLabel from "../formLabel/formLabel";
 import Button from "../button/Button";
 import FadeAnimator from "../animators/FadeAnimator";
+import ErrorSnackbar from "../errorSnackbar/ErrorSnackbar";
+// Context
+import UserContext from "../../context/UserContext";
+// Hooks
+import { useSignIn } from "../../hooks/useSignIn";
 // Utilities
 import { authFormValidator, ErrorObject } from "../../utils/formValidator";
 import { tailwindClass } from "../../utils/tailwindClass";
-// Context
-import UserContext from "../../context/UserContext";
-import ErrorSnackbar from "../errorSnackbar/ErrorSnackbar";
 
 const SignInForm: React.FC = () => {
   const {

@@ -1,6 +1,9 @@
+// Libraries
 import React from "react";
+// Components
 import CommentsCard from "./CommentCard";
 import CreateComment from "./CreateComment";
+// Interfaces
 import { PostInterface } from "./interface";
 
 interface CommentProps {

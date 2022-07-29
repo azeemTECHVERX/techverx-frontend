@@ -1,15 +1,24 @@
+// Libraries
 import React, { useContext, useState } from "react";
 import Moment from "react-moment";
-import CancelIcon from "../cancelicon/CancelIcon";
-import { useDeletePost } from "../../hooks/useDeletePost";
-import UserContext from "../../context/UserContext";
-import { queryClient } from "../..";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { ChatAlt2Icon, HeartIcon } from "@heroicons/react/solid";
-import { useToggleLike } from "../../hooks/useToggleLike";
+// Components
+import CancelIcon from "../cancelicon/CancelIcon";
 import Comment from "./Comment";
-import { PostCardProps, PostInterface } from "./interface";
+import { PostCardProps } from "./interface";
 import FadeAnimator from "../animators/FadeAnimator";
+// Context
+import UserContext from "../../context/UserContext";
+// Hookes
+import { useDeletePost } from "../../hooks/useDeletePost";
+import { useToggleLike } from "../../hooks/useToggleLike";
+// Utils
+import {
+  isLiked,
+  deletePost,
+  toggleLike,
+} from "../../utils/postHelpers/postHelpers";
 
 const PostCard = ({ posts }: PostCardProps) => {
   const userContext = useContext(UserContext);
@@ -20,48 +29,6 @@ const PostCard = ({ posts }: PostCardProps) => {
     postId: "",
   });
 
-  const handleDelete = (id: string) => {
-    mutateDeleteObject
-      .mutateAsync(id)
-      .then(() => {
-        toast.success("Post Has Been Deleted.", { id: "postdeletetoaster" });
-        queryClient.invalidateQueries(["posts"]);
-      })
-      .catch(() =>
-        toast.error("There is Some error while deleting the post", {
-          id: "postDeleteErrorToaster",
-        })
-      );
-  };
-
-  const toggleLike = (id: string) => {
-    mutateLikeObject
-      .mutateAsync(id)
-      .then((res) => {
-        toast.success(`Post has been ${res.data.status}`, {
-          duration: 1000,
-          id: "postLikeUnlikeToaster",
-        });
-        queryClient.invalidateQueries(["posts"]);
-      })
-      .catch((e) =>
-        toast.error(`Something Bad happened!`, {
-          duration: 1000,
-          id: "postLikeUnlikeErrorToaster",
-        })
-      );
-  };
-
-  // Late to move this functionality
-  const isLiked = (post: PostInterface) => {
-    let liked = post.likes.filter(
-      (like) => like._id === userContext?.user?._id
-    );
-    if (liked.length) {
-      return true;
-    }
-    return false;
-  };
   return (
     <React.Fragment>
       {posts.map((post) => {
@@ -71,7 +38,7 @@ const PostCard = ({ posts }: PostCardProps) => {
             {userContext?.user?._id === post.postBy._id ? (
               <div
                 className="absolute top-4 right-4"
-                onClick={() => handleDelete(post._id)}
+                onClick={() => deletePost(mutateDeleteObject, post._id)}
               >
                 <CancelIcon />
               </div>
@@ -101,9 +68,11 @@ const PostCard = ({ posts }: PostCardProps) => {
                 <div className="space-x-4 flex">
                   <div className="flex space-x-2">
                     <HeartIcon
-                      onClick={() => toggleLike(post._id)}
+                      onClick={() => toggleLike(mutateLikeObject, post._id)}
                       className={`h-6 w-6  ${
-                        isLiked(post) ? "text-red-500" : "text-slate-500"
+                        isLiked(post, userContext?.user?._id)
+                          ? "text-red-500"
+                          : "text-slate-500"
                       } hover:scale-110 transition-all ease-in-out hover:cursor-pointer`}
                     />
                     {post.likes.length ? (

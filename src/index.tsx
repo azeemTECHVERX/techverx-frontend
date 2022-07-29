@@ -1,10 +1,14 @@
+// Libraries
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import App from "./App";
-import { UserProvider } from "./context/UserContext";
-import "./index.css";
 import { Toaster } from "react-hot-toast";
+// Componentss
+import App from "./App";
+// Context
+import { UserProvider } from "./context/UserContext";
+// Stylesheet
+import "./index.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

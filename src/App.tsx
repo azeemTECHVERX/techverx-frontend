@@ -1,17 +1,16 @@
 // Librariess
 import React, { useContext, useEffect } from "react";
 import { NavigateFunction, Route, Routes } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // Components
 import Home from "./pages/Home";
 // Pages
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-// hooks
+// Context
 import UserContext from "./context/UserContext";
-import { useNavigate } from "react-router-dom";
 // Utils
 import fetchUser from "./utils/fetchUser";
-import { Toaster } from "react-hot-toast";
 
 const App: React.FC = () => {
   const userContext = useContext(UserContext);

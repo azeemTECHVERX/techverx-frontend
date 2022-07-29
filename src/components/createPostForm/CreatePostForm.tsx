@@ -1,18 +1,23 @@
+// Libraries
 import React, { useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { toast } from "react-hot-toast";
+// Components
 import FormLabel from "../formLabel/formLabel";
 import FormErrorBanner from "../formErrorBanner/FormErrorBanner";
-import { tailwindClass } from "../../utils/tailwindClass";
 import Button from "../button/Button";
 import SpringAnimator from "../animators/SpringAnimator";
+// Context
+import UserContext from "../../context/UserContext";
+// Hooks
+import { useCreatePost } from "../../hooks/useCreatePost";
+// Utils
+import { queryClient } from "../..";
+import { tailwindClass } from "../../utils/tailwindClass";
 import {
   PostFormErrorObject,
   postFormValidator,
 } from "../../utils/formValidator";
-import UserContext from "../../context/UserContext";
-import { useCreatePost } from "../../hooks/useCreatePost";
-import { queryClient } from "../..";
-import { toast } from "react-hot-toast";
 
 const CreatePostForm: React.FC<any> = ({ closeModal }) => {
   const userContext = useContext(UserContext);

@@ -1,6 +1,5 @@
 // Libraries
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React from "react";
 // Components
 import Button from "../button/Button";
 import SpringAnimator from "../animators/SpringAnimator";

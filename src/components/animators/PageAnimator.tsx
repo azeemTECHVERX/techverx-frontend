@@ -1,5 +1,7 @@
+// Libraries
 import React from "react";
 import { motion } from "framer-motion";
+
 const PageAnimator: React.FC<any> = ({ children }: any) => {
   return (
     <motion.div
